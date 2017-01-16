@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Animation</title>
+	</head>
+	<body>
+		<h1 id="heading">Hello world!</h1>
+
+		<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+		<script>
+		var offset = 0;
+		var direction = "left";
+		var moveHeading = function () {
+			if (direction === "left") {
+				$('#heading').offset({ left: offset});
+				offset+=2;
+			if (offset > 1200) {
+				direction = "down";
+				offset = 0;
+				}
+			}
+			else if (direction === "down") {
+				$('#heading').offset({ top: offset});
+				offset+=2;
+				if (offset > 600) {
+				direction = "right";
+				
+				}
+			}
+			else if (direction === "right") {
+				$('#heading').offset({ left: offset});
+				offset-=2;
+				if (Math.abs(offset) <= 0) {
+				direction = "up";
+				offset = 0;
+
+				}
+			}
+			else if (direction === "up") {
+				$('#heading').offset({ top: offset});
+				offset-=2;
+				if (Math.abs(offset) > 600) {
+				direction = "left";
+				offset = 0;
+				}
+			}
+		};
+
+		setInterval(moveHeading, 5);
+
+
+		</script>
+
+	</body>
+</html>

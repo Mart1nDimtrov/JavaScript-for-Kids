@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Interactive programming</title>
+	</head>
+	<body>
+		<h1 id="heading">Hello world!</h1>
+
+		<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+		<script>
+		var leftOffset = 0;
+		var moveHeading = function () {
+			$('#heading').offset({ left: leftOffset});
+
+			leftOffset+=2;
+
+			if (leftOffset > 1000) {
+				leftOffset = 0;
+			}
+		};
+
+		setInterval(moveHeading, 5);
+		</script>
+
+	</body>
+</html>

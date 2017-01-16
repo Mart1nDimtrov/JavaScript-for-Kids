@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Playing with the DOM</title>
+	</head>
+	<body>
+		<h1 id="main-heading">Hello world!</h1>
+			<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+			<script>
+				var friends = ["Gosho", "Pesho", "Stamat", "Leviathan"]
+ 				$("#main-heading").text("My friends");
+ 				for (var i = 0; i < friends.length; i++){
+ 					$('body').append("<p>" + friends[i] + "</p>") 
+ 				}
+ 				$("p").append(" smelly") // each p must end with a </p> in order
+ 				// for the append function to recognize only the first element
+			</script>
+	</body>
+</html>
