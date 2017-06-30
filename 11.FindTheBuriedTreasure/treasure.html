@@ -6,11 +6,11 @@
 <body>
 	<h1 id="heading">Find the buried treasure!</h1>
 
-	<img id="map" width=400 height=400
+	<img id="map" width=800 height=800
 		src="http://nostarch.com/images/treasuremap.png">
 
-	<p id="distance"></p>
-
+	<p id="distance" style="font-size:30px">Click on the map to start</p>
+	<p id="clicks" style="font-size:30px">Clicks left: 30</p>
 	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
 	<script>
 	// Get a random number from 0 to size
@@ -28,16 +28,18 @@
 		var getDistanceHint = function (distance) {
 		if (distance < 10){
 			return "Boiling hot!";
-		} else if (distance < 20){
-			return "Really hot";
 		} else if (distance < 40){
-			return "Hot";
+			return "Really hot";
 		} else if (distance < 80){
-			return "Warm";
+			return "Hot";
 		} else if (distance < 160){
-			return "Cold";
+			return "Warm";
 		} else if (distance < 320){
+			return "Cold";
+		} else if (distance < 480){
 			return "Really cold";
+		} else if (distance < 640){
+			return "Really really cold";
 		} else {
 			return "Freezing!";
 		}
@@ -45,9 +47,10 @@
 	};
 
 	// Set up our variables
-	var height = 400;
-	var width = 400;
+	var height = 800;
+	var width = 800;
 	var clicks = 0;
+	var limit = 30;
 
 	// Create a random target location
 	var target = {
@@ -58,6 +61,12 @@
 	// Add a click handler to the img element
 	$("#map").click(function (event){
 		clicks++;
+
+		if (clicks >= limit){
+			alert("GAME OVER")
+		}
+		var clicksPassed = "Clicks left: " + (30 - clicks);
+		$("#clicks").text(clicksPassed);
 
 		// Get distance between click event and target
 		var distance = getDistance(event, target);
@@ -73,11 +82,6 @@
 		alert("Found the treasure in " + clicks + " clicks!")
 		};
 	});
-
-
-
-
-
 	</script>
 </body>
 </html>
