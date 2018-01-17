@@ -10,11 +10,12 @@
 	var Car = function (x, y){
 		this.x = x;
 		this.y = y;
+		this.speed = 20;
+		this.draw();
 	};
 
 	Car.prototype.draw = function () {
 		var carHtml = '<img src="http://nostarch.com/images/car.png">';
-
 		this.carElement = $(carHtml);
 
 		this.carElement.css({
@@ -27,7 +28,12 @@
 	};
 
 	Car.prototype.moveRight = function () {
-		this.x += 5;
+		if (arguments.length > 0) {
+			this.x = this.x + arguments[0];
+		} else {
+			this.x = this.x + this.speed;
+		}
+		
 
 		this.carElement.css({
 			left: this.x,
@@ -36,7 +42,11 @@
 	};
 
 	Car.prototype.moveLeft = function () {
-		this.x -= 5;
+		if (arguments.length > 0) {
+			this.x = this.x - arguments[0];
+		} else {
+			this.x = this.x - this.speed;
+		}
 
 		this.carElement.css({
 			left: this.x,
@@ -45,7 +55,12 @@
 	};
 
 	Car.prototype.moveUp = function () {
-		this.y -= 5;
+		this.y = this.y - this.speed;
+		if (arguments.length > 0) {
+			this.y = this.y - arguments[0];
+		} else {
+			this.y = this.y - this.speed;
+		}
 
 		this.carElement.css({
 			left: this.x,
@@ -54,7 +69,11 @@
 	};
 
 	Car.prototype.moveDown = function () {
-		this.y += 5;
+		if (arguments.length > 0) {
+			this.y = this.y + arguments[0];
+		} else {
+			this.y = this.y + this.speed;
+		}
 
 		this.carElement.css({
 			left: this.x,
@@ -64,9 +83,9 @@
 
 	var tesla = new Car(20, 20);
 	var nissan = new Car(100, 200);
-
-	tesla.draw();
-	nissan.draw();
+	nissan.moveRight(100);
+	nissan.moveRight(100);
+	nissan.moveRight(100);
 	</script>
 </body>
 </html>
