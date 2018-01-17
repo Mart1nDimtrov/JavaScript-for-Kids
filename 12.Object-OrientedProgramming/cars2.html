@@ -82,10 +82,9 @@
 	};
 
 	var tesla = new Car(20, 20);
-	var nissan = new Car(100, 200);
-	nissan.moveRight(100);
-	nissan.moveRight(100);
-	nissan.moveRight(100);
+	var nissan = new Car(20, 200);
+	setInterval(function(){ tesla.moveRight(Math.floor((Math.random() * 20) + 1));
+	nissan.moveRight(Math.floor((Math.random() * 20) + 1)); }, 1000);
 	</script>
 </body>
 </html>
