@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Robot</title>
+</head>
+<body>
+	<canvas id="canvas" width="200" height="200"></canvas>
+	<script>
+		function fillRect (x, y) {
+			ctx.fillRect(x,y,10,10);
+		}
+		var canvas= document.getElementById("canvas");
+		var	ctx= canvas.getContext("2d");
+		for (var i = 5; i < 10; i++) {
+			for (var j = 1; j < 5; j++) {
+				fillRect(i * 10,j * 10);
+			}
+		}
+		fillRect(i * 10 / 1.5 + 2.5, j * 10);
+		j++;
+		fillRect(i * 10 / 1.5 + 2.5, j * 10);
+		j++;
+		i = 2;
+		for (;i < 13; i++) {
+			fillRect(i * 10, j * 10);
+		}
+		j++;
+		for (i = 4; i < 11; i++) {
+			for (j = 8;j < 13; j++) {
+				fillRect(i * 10,j * 10);
+			}
+		}
+		i = 4;
+		for (;j < 18; j++) {
+			fillRect(i * 10,j * 10);
+		}
+		i = 10;
+		for (j = 13;j < 18; j++) {
+			fillRect(i * 10,j * 10);
+		}
+	</script>
+</body>
+</html>
