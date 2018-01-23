@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Three Rectangles</title>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	<script>
+		var canvas= document.getElementById("canvas");
+		var ctx= canvas.getContext("2d");
+		ctx.strokeStyle= "Black";
+		ctx.lineWidth= 4;
+		ctx.strokeRect(100,50,50,50);
+		ctx.beginPath();
+		// draw neck
+		ctx.moveTo(125, 100);
+		ctx.lineTo(125, 125);
+		// draw hands
+		ctx.moveTo(125, 160);
+		ctx.lineTo(170, 120);
+		ctx.moveTo(125, 160);
+		ctx.lineTo(80, 120);
+		// draw body
+		ctx.moveTo(125, 125);
+		ctx.lineTo(125, 220);
+		// draw legs
+		ctx.moveTo(125, 220);
+		ctx.lineTo(180, 280);
+		ctx.moveTo(125, 220);
+		ctx.lineTo(70, 280);
+		ctx.stroke();
+	</script>
+</body>
+</html>
