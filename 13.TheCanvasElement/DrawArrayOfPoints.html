@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Draw Array of Points</title>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	<script>
+		var drawPoints = function(mysteryPoints) {
+			ctx.beginPath();
+			for (var i = 2; i < mysteryPoints.length - 2; i++) {
+				ctx.moveTo(mysteryPoints[i - 2][0], mysteryPoints[i - 2][1]);
+				ctx.lineTo(mysteryPoints[i - 1][0], mysteryPoints[i - 1][1]);
+			};
+			ctx.lineTo(mysteryPoints[mysteryPoints.length - 1][0], mysteryPoints[mysteryPoints.length - 1][1]);
+			ctx.stroke();
+		}
+		var canvas = document.getElementById("canvas");
+		var	ctx = canvas.getContext("2d");
+		ctx.lineWidth = 2;
+		var mysteryPoints= [[50,50], [50,100], [100,100], [100,50],
+			[100, 100], [100, 50], [50,50]];
+		drawPoints(mysteryPoints);	
+	</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Draw Snowman</title>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	<script>
+		var drawSnowman = function(startX, startY) {
+			var circle= function (x, y, radius, filled, strokeStyle, colorFill) {
+				ctx.strokeStyle = strokeStyle;
+				ctx.beginPath();
+				ctx.arc(x,y,radius,0, Math.PI* 2, false);
+				ctx.stroke();
+				if (filled && typeof(colorFill) !== "udefined") {
+					ctx.fillStyle = colorFill;
+					ctx.fill();
+				}
+			};
+			var canvas= document.getElementById("canvas");
+			var	ctx = canvas.getContext("2d");
+			ctx.lineWidth= 2;
+
+			// draw head
+			circle(startX, startY, 40, false, "Black");
+			circle(startX, startY, 5, true, "Orange", "Orange");
+			circle(startX - 15, startY - 10, 5, true, "Black", "Black");
+			circle(startX + 15, startY - 10, 5, true, "Black", "Black");
+
+
+			// draw body
+			ctx.strokeStyle= "Black";
+			circle(startX, startY + 80, 5, true, "Black", "Black");
+			ctx.strokeStyle = "Black";
+			circle(startX, startY + 100, 5, true, "Black", "Black");
+			ctx.strokeStyle= "Black";
+			circle(startX, startY + 120, 5, true, "Black", "Black");
+			ctx.strokeStyle= "Black";
+			circle(startX, startY + 100, 60, false);
+		};
+		drawSnowman(100, 100);	
+	</script>
+</body>
+</html>
