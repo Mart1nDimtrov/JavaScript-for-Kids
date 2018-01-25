@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Painting with your mouse</title>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400"></canvas>
+<script>
+	var canvas= document.getElementById("canvas");
+	var	ctx = canvas.getContext("2d");
+	ctx.lineWidth= 2;
+	var circle = function (x, y, radius, filled, strokeStyle, colorFill) {
+		ctx.strokeStyle = strokeStyle;
+		ctx.beginPath();
+		ctx.arc(x,y,radius,0, Math.PI* 2, false);
+		ctx.stroke();
+		if (filled && typeof(colorFill) !== "udefined") {
+			ctx.fillStyle = colorFill;
+			ctx.fill();
+		}
+	};
+	$("html").mousemove(function (event) {
+		circle(event.pageX, event.pageY, 3, false, "Black");
+	});
+</script>
+</body>
+</html>
