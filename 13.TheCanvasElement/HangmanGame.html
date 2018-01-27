@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form id="form">
-	Guess a letter, or click Cancel to stop playing.
+	Guess a letter:
 	  <input type="text" name="guess">
 	</form>
 	<canvas id="canvas" width="400" height="400"></canvas>
@@ -26,17 +26,17 @@
 				ctx.moveTo(125, 100);
 				ctx.lineTo(125, 125);
 			} else if (count == 3) {
-				// draw hand
-				ctx.moveTo(125, 160);
-				ctx.lineTo(170, 120);
+				// draw body
+				ctx.moveTo(125, 125);
+				ctx.lineTo(125, 220);
 			} else if (count == 4) {
 				// draw hand
 				ctx.moveTo(125, 160);
 				ctx.lineTo(80, 120);
 			} else if (count == 5) {
-				// draw body
-				ctx.moveTo(125, 125);
-				ctx.lineTo(125, 220);
+				// draw hand
+				ctx.moveTo(125, 160);
+				ctx.lineTo(170, 120);
 			} else if (count == 6) {
 				// draw leg
 				ctx.moveTo(125, 220);
@@ -80,9 +80,11 @@
 				var guess = $("input[name='guess']").val();
 				if (guess === null)
 				{
-
+					alert("Please enter a single letter.");
+					$("input[name='guess']").val("")
 				} else if (guess.length !== 1){
-
+					alert("Please enter a single letter.");
+					$("input[name='guess']").val("")
 				} else {
 					// Update the game state with the guess
 					guessed = false;
@@ -91,13 +93,21 @@
 							answerArray[j] = word[j];
 							word[j] = word[j].toUpperCase();
 							guessed = true;
-							remainingLetters--;
+							--remainingLetters;
 							$("#current-guess").text(answerArray.join(' '));
+							if (remainingLetters === 0) {
+								setTimeout(function(){ alert("You won!"); }, 1000);	
+								setTimeout(function(){ location.reload(); }, 1000);	
+							};
 						}
 					}
-					if (!guessed){
+					if (!guessed) {
 						remainingGuesses--;
 						drawHangman(7 - remainingGuesses);
+						if (remainingGuesses === 0) {
+							setTimeout(function(){ alert("Game lost!"); }, 10);
+							location.reload();
+						};
 					}
 				}
 			}
