@@ -25,6 +25,7 @@
 	var Ball = function () {
 		this.x =width /2;
 		this.y =height /2;
+		this.radius = 10;
 		this.direction = "";
 		this.speed = 5;
 		this.xSpeed = 5;
@@ -33,21 +34,22 @@
 
 	// Update the ball's position based on its speed
 	Ball.prototype.move = function () {
-		this.x +=this.xSpeed;
-		this.y +=this.ySpeed;
-		if (this.x - 5 <= 0) {
+		this.x += this.xSpeed;
+		this.y += this.ySpeed;
+		var halfRadius = this.radius / 2;
+		if (this.x - halfRadius  <= 0) {
 			this.setDirection("right");
-		} else if (this.x + 5 >= width) {
+		} else if (this.x + halfRadius >= width) {
 			this.setDirection("left");
-		} else if (this.y - 5 <= 0) {
+		} else if (this.y - halfRadius <= 0) {
 			this.setDirection("down");
-		} else if (this.y >= height) {
+		} else if (this.y + halfRadius >= height) {
 			this.setDirection("up");
 		}
 	};
 	// Draw the ball at its current position
 	Ball.prototype.draw = function () {
-		circle(this.x,this.y,10, true);
+		circle(this.x,this.y,this.radius, true);
 	};
 	// Set the ball's direction based on a string
 	Ball.prototype.setDirection = function (direction) {
@@ -83,6 +85,14 @@
 			56: 8,
 			57: 9
 		};
+		var shifts = {
+			90: "slower",
+			88: "faster"
+		};
+		var sizes = {
+			67: "smaller",
+			86: "bigger"
+		};
 		// An object to convert keycodes into action names
 		var keyActions = {
 			9: "shift",
@@ -102,6 +112,21 @@
 			} else if (event.keyCode in speeds) {
 				ball.speed = speeds[event.keyCode];
 				ball.setDirection(ball.direction);
+			} else if (event.keyCode in shifts) {
+				var shift = shifts[event.keyCode];
+				if (shift == "slower") {
+					ball.speed = ball.speed - 1;
+				} else if (shift == "faster") {
+					ball.speed = ball.speed + 1;
+				}
+				ball.setDirection(ball.direction);
+			} else if (event.keyCode in sizes) {
+				var size = sizes[event.keyCode];
+				if (size == "smaller") {
+					ball.radius = ball.radius - 1;
+				} else if (size == "bigger") {
+					ball.radius = ball.radius + 1;
+				}
 			}
 		});
 		// The animation function, called every 30 ms
