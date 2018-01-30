@@ -115,7 +115,9 @@
 			} else if (event.keyCode in shifts) {
 				var shift = shifts[event.keyCode];
 				if (shift == "slower") {
-					ball.speed = ball.speed - 1;
+					if (ball.speed > 1) {
+						ball.speed = ball.speed - 1;
+					};
 				} else if (shift == "faster") {
 					ball.speed = ball.speed + 1;
 				}
@@ -123,7 +125,10 @@
 			} else if (event.keyCode in sizes) {
 				var size = sizes[event.keyCode];
 				if (size == "smaller") {
-					ball.radius = ball.radius - 1;
+					if (ball.radius > 1) {
+						ball.radius = ball.radius - 1;
+					};
+					
 				} else if (size == "bigger") {
 					ball.radius = ball.radius + 1;
 				}
