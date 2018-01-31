@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+	<form id="form">
+	Guess a letter:
+	  <input type="text" name="guess">
+	</form>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	<script>
+		var xWrongGuess = 280;
+		var yWrongGuess = 10;
+		var canvas= document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		ctx.strokeStyle= "Black";
+		ctx.lineWidth = 4;
+		ctx.beginPath();
+		var drawHangman = function(count) {
+			if (count == 1) {
+				// draw head
+				ctx.strokeRect(100,50,50,50);
+			} else if (count == 2) {
+				// draw neck
+				ctx.moveTo(125, 100);
+				ctx.lineTo(125, 125);
+			} else if (count == 3) {
+				// draw body
+				ctx.moveTo(125, 125);
+				ctx.lineTo(125, 220);
+			} else if (count == 4) {
+				// draw hand
+				ctx.moveTo(125, 160);
+				ctx.lineTo(80, 120);
+			} else if (count == 5) {
+				// draw hand
+				ctx.moveTo(125, 160);
+				ctx.lineTo(170, 120);
+			} else if (count == 6) {
+				// draw leg
+				ctx.moveTo(125, 220);
+				ctx.lineTo(180, 280);
+			} else if (count == 7) {
+				// draw leg
+				ctx.moveTo(125, 220);
+				ctx.lineTo(70, 280);
+			}
+			ctx.stroke();
+		}
+		
+		var drawWrongGuess = function (guess) {
+			ctx.font = "20px Courier";
+			ctx.fillStyle = "Black";
+			ctx.textAlign = "left";
+			ctx.textBaseline = "top";
+			ctx.fillText("-", xWrongGuess, yWrongGuess);
+			ctx.fillText(guess, xWrongGuess, yWrongGuess);
+			yWrongGuess += 20;
+		};
+
+		var drawCurrentState = function () {
+			ctx.font = "20px Courier";
+			ctx.fillStyle = "Black";
+			ctx.textAlign = "left";
+			ctx.textBaseline = "top";
+			ctx.fillText(answerArray.join(' '), 20, 320);
+		};
+
+		// Create an array of words
+		var words = [
+		"javascript", 
+		"monkey",
+		"amazing",
+		"pancake",
+		"donkey",
+		"hazard",
+		"random"
+		];
+
+		// Pick a random word
+		var word = words[Math.floor(Math.random() * words.length)];
+
+		//Set up the answer array
+		var answerArray = [];
+		for (var i = 0; i < word.length; i++){
+			answerArray[i] = "_";
+		}
+		var remainingLetters = word.length;
+		var remainingGuesses = 7;
+		var guessed = false;
+		drawCurrentState();
+		$("#form").on("submit", function(event) {
+			event.preventDefault();
+			if(remainingLetters > 0 && remainingGuesses > 0) {
+				// Show the player their progress
+				$("#current-guess").text(answerArray.join(' '));
+				var guess = $("input[name='guess']").val();
+				if (guess === null)
+				{
+					alert("Please enter a single letter.");
+					$("input[name='guess']").val("")
+				} else if (guess.length !== 1){
+					alert("Please enter a single letter.");
+					$("input[name='guess']").val("")
+				} else {
+					// Update the game state with the guess
+					guessed = false;
+					for(j = 0; j < word.length; j++){
+						if(guess === word[j] && answerArray[j] === "_") {
+							answerArray[j] = word[j];
+							word[j] = word[j].toUpperCase();
+							guessed = true;
+							--remainingLetters;
+							drawCurrentState();
+							if (remainingLetters === 0) {
+								setTimeout(function(){ alert("You won!"); }, 1000);	
+								setTimeout(function(){ location.reload(); }, 1000);	
+							};
+						} 
+					}
+					if (!guessed) {
+						drawWrongGuess(guess);
+						remainingGuesses--;
+						drawHangman(7 - remainingGuesses);
+						if (remainingGuesses === 0) {
+							setTimeout(function(){ alert("Game lost!"); }, 10);
+							location.reload();
+						};
+					}
+				}
+			}
+			$("input[name='guess']").val("");
+		});
+	</script>
+</body>
+</html>
+
